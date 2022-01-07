@@ -22,14 +22,18 @@
                 <form>
                     <div class="form-group">
                         <label for="formSignUpEmail">Email address</label>
-                        <input type="email" class="form-control" id="formSignUpEmail" placeholder="Enter your email address">
+                        <input type="email" class="form-control" id="formSignUpEmail" placeholder="Enter your email address" 
+                        required pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$">
                     </div>
                     <div class="form-group">
                         <label for="formSignUpPassword">Password</label>
-                        <input type="password" class="form-control" id="formSignUpPassword" placeholder="Enter your password">
+                        <input type="password" class="form-control" id="formSignUpPassword" placeholder="Enter your password" 
+                        required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@*$#]).{8,16}" onkeyup="jsSignUpValidatePassword()">
 
-                        <input type="password" class="form-control mt-4" id="formSignUpPasswordConf" placeholder="Confirm your password">
+                        <input type="password" class="form-control mt-4" id="formSignUpPasswordConf" placeholder="Confirm your password" 
+                        required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@*$#]).{8,16}" onkeyup="jsSignUpValidatePassword()">
                     </div>
+                    <p id="password_comparison"></p>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
@@ -43,6 +47,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+      var jsSignUpPassword = document.getElementById("formSignUpPassword");
+      var jsSignUpPasswordConf = document.getElementById("formSignUpPasswordConf");
+
+      function jsSignUpValidatePassword(){
+        if(jsSignUpPassword.value != jsSignUpPasswordConf.value) {
+          jsSignUpPasswordConf.setCustomValidity("Passwords don't match!");
+		 document.getElementById("password_comparison").innerHTML = "<div class='alert alert-danger' role='alert'>Passwords don't match!</div>";
+        } else {
+          jsSignUpPasswordConf.setCustomValidity('');
+		 document.getElementById("password_comparison").innerHTML = "";
+        }
+      }
+
+    </script>
 
     <!-- Optional Javascript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
