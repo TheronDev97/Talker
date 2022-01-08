@@ -8,31 +8,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // Place directly inside Bootstrap container to keep the right structure of Bootstrap document
-function phpShowFeedback($feedback_id) {
+function phpShowSystemFeedback($feedback_id) {
 	switch ($feedback_id) {
-            case "801":
-            $feedback_type="danger";
-            $feedback_text="This is not a valid email address";
-            break;
             
-            case "802":
-            $feedback_type="danger";
-            $feedback_text="Password must be between 8 and 16 characters long, with at least one uppercase and lowercase character, one number and one special character (@, *, $ or #).";
-            break;
-
-		case "803":
-            $feedback_type="danger";
-            $feedback_text="Passwords don't match";
-            break;
-
             case "804":
                   $feedback_type="danger";
                   $feedback_text="This email is already used!";
-                  break;
-
-            case "805":
-                  $feedback_type="danger";
-                  $feedback_text="This email is not registered!";
                   break;
 
             case "806":
@@ -45,35 +26,64 @@ function phpShowFeedback($feedback_id) {
                   $feedback_text="Verification link is corrupted!";
                   break;
 
-		case "811":
-            $feedback_type="success";
-            $feedback_text="Your account has been activated you can sign in!";
-            break;
+		    case "811":
+                  $feedback_type="success";
+                  $feedback_text="Your account has been activated you can sign in!";
+                  break;
 
             case "812":
                   $feedback_type="warning";
                   $feedback_text="Check your inbox and verify your email address!";
                   break;
-
-		default:
-            $feedback_type="danger";
-            $feedback_text="Unspecified error or warning";
-            break;
+            default:
+                $feedback_type="";
+                $feedback_text="";
     }
 
-	return '<div class="row"><div class="col-12"><div class="alert alert-' . $feedback_type . '" role="alert">' . $feedback_text . '</div></div></div>';
+    return [$feedback_type, $feedback_text];
 }
 
-// Create, update or delete a record in the database
-function phpModifyDB($db_query, $db_data) {
+function phpShowInputFeedback($feedback_id) {
+	switch ($feedback_id) {
+		case "801":
+		$feedback_type="is-invalid";
+		$feedback_text="This is not a valid email address";
+		break;
+
+		case "802":
+		$feedback_type="is-invalid";
+		$feedback_text="Password must be between 8 and 16 characters long, with at least one uppercase and lowercase character, one number and one special character (@, *, $ or #).";
+		break;
+
+		case "803":
+		$feedback_type="is-invalid";
+		$feedback_text="Passwords don't match";
+		break;
+
+		case "805":
+		$feedback_type="is-invalid";
+		$feedback_text="This email is not registered!";
+		break;
+
+		default:
+		$feedback_type="is-invalid";
+		$feedback_text="Unspecified error or warning";
+		break;
+    }
+
+	return [$feedback_type, $feedback_text];
+}
+
+    // Create, update or delete a record in the database
+    function phpModifyDB($db_query, $db_data) {
       global $connection;
   
       $statement = $connection->prepare($db_query);
       $statement->execute($db_data);
-  }
+    }
 
-// Get the information from the database
-function phpFetchDB($db_query, $db_data) {
+    // Get the information from the database
+    function phpFetchDB($db_query, $db_data) {
       global $connection;
   
       $statement = $connection->prepare($db_query);
@@ -81,7 +91,7 @@ function phpFetchDB($db_query, $db_data) {
   
       //setting the fetch mode and returning the result
       return $statement->fetch(PDO::FETCH_ASSOC);
-  }
+    }
 
   function phpSendEmail($to,$subject,$content){
       //Create a new PHPMailer instance
@@ -119,6 +129,16 @@ function phpFetchDB($db_query, $db_data) {
       } else {
           $_SESSION['msgid']="812";
       }
-  }
+    }
+
+  function phpShowEmailInputValue($user_email) {
+    if ($user_email != "") {
+        $content="value='" . $user_email . "'";
+    }else{
+        $content="";
+    }
+
+    return $content;
+    }
 
 ?>
