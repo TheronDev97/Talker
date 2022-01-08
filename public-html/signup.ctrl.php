@@ -17,6 +17,9 @@ $password_validation=preg_match($user_password_pattern,$user_password);
 
 
 if ($email_validation && $password_validation && $user_password == $_POST["formSignUpPasswordConf"]) {
+    //hash the password before storing it in the database
+    $hashed_user_password=password_hash($user_password, PASSWORD_DEFAULT);
+
     //checking if the submitted email is already in users table
 	$db_data = array($user_email);
 	$isAlreadySignedUp = phpFetchDB('SELECT user_email FROM users WHERE user_email = ?', $db_data);
@@ -24,7 +27,7 @@ if ($email_validation && $password_validation && $user_password == $_POST["formS
 
 	//if no result is returned, insert new record to the table, otherwise display feedback
 	if (!is_array($isAlreadySignedUp)) {
-		$db_data = array($user_email, $user_password);
+		$db_data = array($user_email, $hashed_user_password);
 		phpModifyDB('INSERT INTO users (user_email, user_password) values (?, ?)', $db_data);
 		$db_data = "";
 		$_SESSION["msgid"] = "811";
