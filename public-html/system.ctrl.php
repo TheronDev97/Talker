@@ -112,11 +112,11 @@ function phpShowInputFeedback($feedback_id) {
       //Whether to use SMTP authentication
       $mail->SMTPAuth = true;
       //Username to use for SMTP authentication - use full email address for gmail
-      $mail->Username = "youssefhany9711@gmail.com";
+      $mail->Username = MYEMAIL;
       //Password to use for SMTP authentication, your Gmail password comes here
       $mail->Password = SMTP_PSWD;
       //Set who the message is to be sent from
-      $mail->setFrom('youssefhany9711@gmail.com', 'Jan Zavrel');
+      $mail->setFrom(MYEMAIL, 'Jan Zavrel');
       //Set who the message is to be sent to
       $mail->addAddress($to);
       //Set email format to HTML and add content
