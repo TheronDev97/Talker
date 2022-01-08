@@ -1,6 +1,6 @@
 <?php session_start(); require "system.ctrl.php"?>
 
-<?php phpSendEmail('youssef_hany_97@hotmail.com','Here is the subject TEST','This is the HTML message body <b>in bold!</b> TEST'); ?>
+<?php // ?>
 
 <!DOCTYPE html>
 <html lang="en">
