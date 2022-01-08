@@ -21,9 +21,9 @@ if ($email_validation && $password_validation && $user_password == $_POST["formS
     $hashed_user_password=password_hash($user_password, PASSWORD_DEFAULT);
 
     //checking if the submitted email is already in users table
-	//$db_data = array($user_email);
-	//$isAlreadySignedUp = phpFetchDB('SELECT user_email FROM users WHERE user_email = ?', $db_data);
-	//$db_data = "";
+	$db_data = array($user_email);
+	$isAlreadySignedUp = phpFetchDB('SELECT user_email FROM users WHERE user_email = ?', $db_data);
+	$db_data = "";
 
 	//if no result is returned, insert new record to the table, otherwise display feedback
 	if (!is_array($isAlreadySignedUp)) {

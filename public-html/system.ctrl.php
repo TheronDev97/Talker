@@ -12,29 +12,39 @@ function phpShowSystemFeedback($feedback_id) {
 	switch ($feedback_id) {
             
             case "804":
-                  $feedback_type="danger";
-                  $feedback_text="This email is already used!";
-                  break;
+                $feedback_type="danger";
+                $feedback_text="This email is already used!";
+                break;
 
             case "806":
-                  $feedback_type="danger";
-                  $feedback_text="Your account has already been activated!";
-                  break;
+                $feedback_type="danger";
+                $feedback_text="Your account has already been activated!";
+                break;
 
             case "807":
-                  $feedback_type="danger";
-                  $feedback_text="Verification link is corrupted!";
-                  break;
+                $feedback_type="danger";
+                $feedback_text="Verification link is corrupted!";
+                break;
+            
+            case "808":
+                $feedback_type="danger";
+                $feedback_text="Wrong email or password!";
+                break;
 
+            case "809":
+                $feedback_type="danger";
+                $feedback_text="Your account hasn't been activated yet. Please, check your inbox first.";
+                break;
+            
 		    case "811":
-                  $feedback_type="success";
-                  $feedback_text="Your account has been activated you can sign in!";
-                  break;
+                $feedback_type="success";
+                $feedback_text="Your account has been activated you can sign in!";
+                break;
 
             case "812":
-                  $feedback_type="warning";
-                  $feedback_text="Check your inbox and verify your email address!";
-                  break;
+                $feedback_type="warning";
+                $feedback_text="Check your inbox and verify your email address!";
+                break;
             default:
                 $feedback_type="";
                 $feedback_text="";
