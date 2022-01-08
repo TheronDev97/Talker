@@ -4,12 +4,12 @@ require 'db-conn.inc.php';
 // Place directly inside Bootstrap container to keep the right structure of Bootstrap document
 function phpShowFeedback($feedback_id) {
 	switch ($feedback_id) {
-        case "801":
+            case "801":
             $feedback_type="danger";
             $feedback_text="This is not a valid email address";
             break;
             
-        case "802":
+            case "802":
             $feedback_type="danger";
             $feedback_text="Password must be between 8 and 16 characters long, with at least one uppercase and lowercase character, one number and one special character (@, *, $ or #).";
             break;
@@ -18,6 +18,11 @@ function phpShowFeedback($feedback_id) {
             $feedback_type="danger";
             $feedback_text="Passwords don't match";
             break;
+
+            case "804":
+                  $feedback_type="danger";
+                  $feedback_text="This email is already used!";
+                  break;
 
 		case "811":
             $feedback_type="success";
@@ -39,6 +44,17 @@ function phpModifyDB($db_query, $db_data) {
   
       $statement = $connection->prepare($db_query);
       $statement->execute($db_data);
+  }
+
+// Get the information from the database
+function phpFetchDB($db_query, $db_data) {
+      global $connection;
+  
+      $statement = $connection->prepare($db_query);
+      $statement->execute($db_data);
+  
+      //setting the fetch mode and returning the result
+      return $statement->fetch(PDO::FETCH_ASSOC);
   }
 
 ?>
