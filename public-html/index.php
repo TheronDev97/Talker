@@ -4,7 +4,7 @@ session_start();
 require('system.ctrl.php');
 
 //if session uid or cookie uid is not empty redirect to gate.php
-//!empty($_SESSION["uid"]) is equivalent to $_SESSION["uid"]!="" but doesn't give off warning if value is empty
+//!empty($_SESSION["uid"]) is equivalent to $_SESSION["uid"]!="" but doesn't give off warning if value is empty (isset can also be used)
 if (!empty($_SESSION["uid"]) || !empty($_COOKIE["cookieUserEmail"])) {
 	header('Location: gate.php');
 }

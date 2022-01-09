@@ -30,13 +30,7 @@
 			$_SESSION["msgid"] = "808";
 			header('Location: index.php');
 
-		} else if (password_verify($user_password, $dbUserRow["user_password"]) && $dbUserRow["user_verified"] != 1 ) { // user OK, password OK, not activated
-
-			//echo "user ok, password ok -> account has not been yet activated -> feedback message";
-			$_SESSION["msgid"] = "809";
-			header('Location: index.php');
-
-		} else if (password_verify($user_password, $dbUserRow["user_password"]) && $dbUserRow["user_verified"] == 1 ) { //user OK, password OK, activated
+		} else if (password_verify( $user_password, $dbUserRow["user_password"]) ) { //user OK, password OK, activated
 
 			//echo "user ok, password ok, activation ok -> allow user in the system -> feedback message";
 			$_SESSION["uid"] = $dbUserRow["user_id"];
