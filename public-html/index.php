@@ -1,6 +1,15 @@
-<?php session_start(); require "system.ctrl.php"?>
+<?php
 
-<?php  ?>
+session_start();
+require('system.ctrl.php');
+
+//if session uid or cookie uid is not empty redirect to gate.php
+//!empty($_SESSION["uid"]) is equivalent to $_SESSION["uid"]!="" but doesn't give off warning if value is empty
+if (!empty($_SESSION["uid"]) || !empty($_COOKIE["cookieUserEmail"])) {
+	header('Location: gate.php');
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -102,7 +111,13 @@
         </div>
     </div>
 
-    <?php $_SESSION["msgid"]=""; $_SESSION["formSignUpEmail"]="" ?>
+    <?php
+      //empty the msgid id only if no user is signed in
+      if ($_SESSION["uid"]=="" || $_COOKIE["cookieUserEmail"]=="") {
+        $_SESSION["msgid"]="";
+      }
+      $_SESSION["formSignUpEmail"]="";
+    ?>
 
     <script>
       var jsSignUpEmail=document.getElementById("formSignUpEmail");
